@@ -1,0 +1,52 @@
+<html>
+	<body>
+		<div id="lottoResult">
+		</div>
+	</body>
+
+	<script>
+		let lottoNumbers = [];
+		let totalLottoNumbers = [];
+		let printLottoNumbers = "";
+
+		while(totalLottoNumbers.length < 5) {
+			while(lottoNumbers.length < 6) {
+				let randomNumber = Math.floor(Math.random() * 45) +1;
+
+				if(lottoNumbers.length === 0) {
+					lottoNumbers.push(randomNumber);
+				} else if (lottoNumbers.indexOf(randomNumber) === -1) {
+					lottoNumbers.push(randomNumber);
+				}
+			}
+
+			lottoNumbers.sort(function(a, b) {
+				//오름차순 정렬
+				return a - b;
+			});
+
+			if(totalLottoNumbers.length === 0) {
+				totalLottoNumbers.push(lottoNumbers);
+			} else {
+				//totalLottoNumbers.push(lottoNumbers);
+				for(let i = 0; i < totalLottoNumbers.length; i++) {
+					if(JSON.stringify(totalLottoNumbers[i]) !== JSON.stringify(lottoNumbers)) {
+						totalLottoNumbers.push(lottoNumbers);
+						break;
+					}
+				}
+			}
+
+			lottoNumbers = [];
+		}
+
+		for(let i = 0; i < totalLottoNumbers.length; i++) {
+			printLottoNumbers += `${i + 1}번째 게임 : `;
+			printLottoNumbers += totalLottoNumbers[i];
+			printLottoNumbers += `<br>`;
+		}
+
+		document.getElementById('lottoResult').innerHTML = printLottoNumbers;
+	</script>
+</html>
+
